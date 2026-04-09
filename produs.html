@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepenero | Detalii produs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fff9f2; color: #2c2418; }
+    h1, h2, h3, .logo { font-family: 'Playfair Display', serif; }
+    
+    header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 251, 245, 0.97); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); border-bottom: 1px solid #f0e2d4; }
+    .nav-container { max-width: 1400px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo h2 { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #c25b1e, #a04010); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #3a2c1f; transition: 0.2s; }
+    .nav-links a:hover { color: #c25b1e; }
+    .cart-icon { position: relative; cursor: pointer; font-size: 1.4rem; }
+    .cart-count { position: absolute; top: -10px; right: -12px; background: #c25b1e; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+    
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .product-detail { display: flex; flex-wrap: wrap; gap: 50px; padding: 60px 0; align-items: center; }
+    .product-img { flex: 1; }
+    .product-img img { width: 100%; border-radius: 32px; box-shadow: 0 20px 35px rgba(0,0,0,0.1); }
+    .product-info { flex: 1; }
+    .product-info h1 { font-size: 2.8rem; margin-bottom: 15px; color: #c25b1e; }
+    .product-price { font-size: 2rem; font-weight: 800; color: #c25b1e; margin: 15px 0; }
+    .product-gram { color: #8b765c; margin-bottom: 20px; }
+    .product-desc { line-height: 1.7; margin-bottom: 20px; }
+    .ingredients { background: #fef7f0; padding: 20px; border-radius: 28px; margin: 20px 0; }
+    .btn-add-cart { background: #c25b1e; color: white; border: none; padding: 14px 32px; border-radius: 50px; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: 0.3s; width: 100%; }
+    .btn-add-cart:hover { background: #9e4716; transform: translateY(-2px); }
+    .btn-back { background: transparent; border: 2px solid #c25b1e; color: #c25b1e; padding: 12px 28px; border-radius: 50px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 15px; margin-right: 15px; }
+    footer { background: #1e1812; color: #e1cfbc; padding: 40px 0; text-align: center; margin-top: 40px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } .product-detail { flex-direction: column; } .nav-container { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo"><h2>🍕 Pepenero</h2></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Acasă</a></li>
+      <li><a href="meniu.html">Meniu</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="cart-icon" id="cartIcon"><i class="fas fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="container" id="productContainer"></div>
+</main>
+
+<footer><div class="container"><p>© 2025 Pepenero - Pizzerie Napoletană Autentică</p></div></footer>
+
+<script>
+  let cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+  function updateCartUI() { document.getElementById('cartCount').innerText = cart.reduce((a,b)=> a + b.quantity, 0); }
+  updateCartUI();
+  document.getElementById('cartIcon').onclick = () => window.location.href = 'cos.html';
+
+  const products = {
+    1: { name: "Margherita", price: 32, gram: "330g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/2147491/pexels-photo-2147491.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Clasica italiană, simplă și perfectă. Sosul de roșii San Marzano, mozzarella di bufala DOP și busuiocul proaspăt creează un echilibru perfect.", ingredients: "Sos San Marzano, mozzarella di bufala DOP, busuioc proaspăt, ulei de măsline extravirgin, sare de mare." },
+    2: { name: "Diavola", price: 38, gram: "350g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Pentru iubitorii de senzații tari. Salam picant italian, ardei iute și parmezan pentru o pizza picantă și aromată.", ingredients: "Salam picant italian, mozzarella, ardei iute, sos de roșii, parmezan, oregano." },
+    3: { name: "Quattro Formaggi", price: 42, gram: "360g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Patru brânzeturi italiene de excepție: Gorgonzola DOP, parmezan Reggiano, mozzarella și provolone, completate de un strop de miere.", ingredients: "Gorgonzola DOP, parmezan Reggiano, mozzarella, provolone, miere de salcâm." },
+    4: { name: "Prosciutto e Funghi", price: 40, gram: "340g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Prosciutto cotto italian de calitate, ciuperci proaspete și un sos alb delicat cu trufă.", ingredients: "Prosciutto cotto italian, ciuperci proaspete, mozzarella, sos alb cu trufă." },
+    5: { name: "Capricciosa", price: 44, gram: "370g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "O pizza bogată cu șuncă, ciuperci, anghinare și măsline kalamata. O experiență completă.", ingredients: "Șuncă, ciuperci, anghinare, măsline kalamata, mozzarella, busuioc." },
+    6: { name: "Vegetariana", price: 36, gram: "350g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Dovlecel, vinete coapte, ardei gras, roșii cherry și rucola proaspătă. Savoarea legumelor la cuptor.", ingredients: "Dovlecel, vinete coapte, ardei gras, roșii cherry, rucola, mozzarella." },
+    7: { name: "Frutti di Mare", price: 52, gram: "380g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/5946646/pexels-photo-5946646.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Calamari, creveți și midii proaspete pe un pat de sos de roșii aromat cu usturoi și pătrunjel.", ingredients: "Calamari, creveți, midii, sos de roșii, usturoi, pătrunjel." },
+    8: { name: "Carbonara Pizza", price: 45, gram: "360g", category: "Pizza Napoletană", img: "https://images.pexels.com/photos/2147491/pexels-photo-2147491.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Inspirată din celebra rețetă de paste, îmbină guanciale crocant, ou ochi și pecorino romano.", ingredients: "Sos carbonara, guanciale, mozzarella, ou ochi, pecorino romano." },
+    9: { name: "Spaghetti Carbonara", price: 44, gram: "300g", category: "Paste", img: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Rețeta tradițională romană: spaghetti cu guanciale, ou, pecorino romano și piper negru.", ingredients: "Spaghetti, guanciale, ou, pecorino romano, piper negru." },
+    10: { name: "Tagliatelle al Ragù", price: 46, gram: "320g", category: "Paste", img: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Tagliatelle proaspete cu sos de vită gătit lent timp de 12 ore.", ingredients: "Tagliatelle, vită, parmezan, busuioc, sos de roșii." },
+    11: { name: "Burger Classic", price: 38, gram: "280g", category: "Burgeri", img: "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Chiflă artizanală, carne de vită, cheddar, salată, roșii și sos secret.", ingredients: "Chiflă, vită, cheddar, salată, roșii, sos secret." },
+    12: { name: "Burger Trufă", price: 48, gram: "300g", category: "Burgeri", img: "https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Burger premium cu sos de trufă, parmezan, rucola și carne de vită maturată.", ingredients: "Chiflă, vită maturată, sos trufă, parmezan, rucola." },
+    13: { name: "Salată Caesar", price: 32, gram: "250g", category: "Salate", img: "https://images.pexels.com/photos/3020919/pexels-photo-3020919.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Salată romană, piept de pui, parmezan, crutoane și sos Caesar.", ingredients: "Salată romană, piept de pui, parmezan, crutoane, sos Caesar." },
+    14: { name: "Tiramisu", price: 26, gram: "150g", category: "Deserturi", img: "https://images.pexels.com/photos/5946646/pexels-photo-5946646.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Prăjituri savoiardi înmuiate în cafea espresso, stratificate cu cremă de mascarpone și cacao.", ingredients: "Mascarpone, cafea espresso, savoiardi, ouă, zahăr, cacao." },
+    15: { name: "Panna Cotta", price: 24, gram: "140g", category: "Deserturi", img: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Crema fină de panna cotta cu sos de fructe de pădure și caramel sărat.", ingredients: "Smântână, zahăr, fructe de pădure, caramel sărat, migdale." },
+    16: { name: "Aperol Spritz", price: 30, gram: "250ml", category: "Băuturi", img: "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Cocktailul italian perfect: Aperol, Prosecco, apă minerală, servit cu felie de portocală.", ingredients: "Aperol, Prosecco, apă minerală, portocală, gheață." },
+    17: { name: "Limonadă", price: 16, gram: "350ml", category: "Băuturi", img: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Limonadă proaspătă cu lămâie, mentă și ghimbir.", ingredients: "Lămâie, mentă, ghimbir, apă, zahăr." },
+    18: { name: "Pizza Bambino", price: 22, gram: "200g", category: "Meniu Copii", img: "https://images.pexels.com/photos/2147491/pexels-photo-2147491.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Pizza mică cu șuncă și mozzarella, servită cu suc.", ingredients: "Șuncă, mozzarella, suc." },
+    19: { name: "Paste Bambino", price: 20, gram: "200g", category: "Meniu Copii", img: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=600", desc: "Paste cu sos de roșii și parmezan, servite cu suc.", ingredients: "Paste, sos de roșii, parmezan, suc." }
+  };
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const productId = urlParams.get('id');
+  const container = document.getElementById('productContainer');
+
+  function addToCart() {
+    const p = products[productId];
+    if (!p) return;
+    let cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+    const existing = cart.find(item => item.id == productId);
+    if (existing) existing.quantity++;
+    else cart.push({ id: parseInt(productId), name: p.name, price: p.price, quantity: 1, gram: p.gram, desc: p.desc });
+    localStorage.setItem('pepenero_cart', JSON.stringify(cart));
+    alert(`${p.name} a fost adăugat în coș!`);
+    updateCartUI();
+  }
+
+  if (productId && products[productId]) {
+    const p = products[productId];
+    container.innerHTML = `
+      <div class="product-detail">
+        <div class="product-img"><img src="${p.img}" alt="${p.name}"></div>
+        <div class="product-info">
+          <h1>${p.name}</h1>
+          <div class="product-price">${p.price} lei</div>
+          <div class="product-gram">⚖️ ${p.gram} | ${p.category}</div>
+          <p class="product-desc">${p.desc}</p>
+          <div class="ingredients"><strong><i class="fas fa-leaf"></i> Ingrediente:</strong><br>${p.ingredients}</div>
+          <button class="btn-add-cart" onclick="addToCart()"><i class="fas fa-cart-plus"></i> Adaugă în coș</button>
+          <div style="margin-top:20px;"><a href="meniu.html" class="btn-back"><i class="fas fa-arrow-left"></i> Înapoi la meniu</a></div>
+        </div>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `<div style="text-align:center; padding:80px;"><h2>Produs negăsit</h2><a href="meniu.html" class="btn-back">Vezi meniul</a></div>`;
+  }
+
+  function updateCartUI() {
+    const cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+    const count = cart.reduce((a,b) => a + b.quantity, 0);
+    document.getElementById('cartCount').innerText = count;
+  }
+  window.updateCartUI = updateCartUI;
+  window.addToCart = addToCart;
+</script>
+</body>
+</html>

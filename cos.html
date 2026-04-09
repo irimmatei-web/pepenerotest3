@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepenero | Coșul meu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fff9f2; color: #2c2418; }
+    h1, h2, h3, .logo { font-family: 'Playfair Display', serif; }
+    
+    header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 251, 245, 0.97); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); border-bottom: 1px solid #f0e2d4; }
+    .nav-container { max-width: 1400px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo h2 { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #c25b1e, #a04010); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #3a2c1f; transition: 0.2s; }
+    .nav-links a:hover { color: #c25b1e; }
+    .cart-icon { position: relative; cursor: pointer; font-size: 1.4rem; }
+    .cart-count { position: absolute; top: -10px; right: -12px; background: #c25b1e; color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center; }
+    
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .section-title { font-size: 2rem; text-align: center; margin: 40px 0; }
+    .cart-page { background: white; border-radius: 32px; padding: 30px; margin: 40px 0; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; flex-wrap: wrap; gap: 10px; }
+    .cart-total { font-size: 1.5rem; font-weight: bold; margin: 20px 0; text-align: right; }
+    .btn-whatsapp { background: #25D366; color: white; border: none; padding: 14px 28px; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 20px; font-size: 1rem; }
+    .btn-continue { background: #c25b1e; color: white; border: none; padding: 12px 24px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 15px; margin-right: 15px; }
+    .btn-remove { background: none; border: none; color: #c25b1e; cursor: pointer; font-size: 0.9rem; }
+    .empty-cart { text-align: center; padding: 40px; font-size: 1.2rem; }
+    footer { background: #1e1812; color: #e1cfbc; padding: 40px 0; text-align: center; margin-top: 40px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } .nav-container { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo"><h2>🍕 Pepenero</h2></div>
+    <ul class="nav-links">
+      <li><a href="index.html">Acasă</a></li>
+      <li><a href="meniu.html">Meniu</a></li>
+      <li><a href="galerie.html">Galerie</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li class="cart-icon" id="cartIcon"><i class="fas fa-shopping-bag"></i><span class="cart-count" id="cartCount">0</span></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <div class="section-title">🛒 Coșul meu</div>
+    <div class="cart-page" id="cartContainer"></div>
+  </div>
+</main>
+
+<footer><div class="container"><p>© 2025 Pepenero - Pizzerie Napoletană Autentică</p></div></footer>
+
+<script>
+  function updateCartUI() {
+    const cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+    const count = cart.reduce((a,b) => a + b.quantity, 0);
+    document.getElementById('cartCount').innerText = count;
+  }
+
+  function removeFromCart(id) {
+    let cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('pepenero_cart', JSON.stringify(cart));
+    displayCart();
+    updateCartUI();
+  }
+
+  function displayCart() {
+    const cart = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+    const container = document.getElementById('cartContainer');
+    if (cart.length === 0) {
+      container.innerHTML = `<div class="empty-cart">🛒 Coșul tău este gol. <a href="meniu.html" style="color:#c25b1e;">Vezi meniul</a></div>`;
+      return;
+    }
+    let total = 0;
+    container.innerHTML = cart.map(item => {
+      total += item.price * item.quantity;
+      return `
+        <div class="cart-item">
+          <div><strong>${item.name}</strong><br><span style="font-size:0.8rem; color:#6b5a4a;">${item.gram || ''}</span></div>
+          <div>${item.price} lei x ${item.quantity} = ${item.price * item.quantity} lei</div>
+          <button class="btn-remove" onclick="removeFromCart(${item.id})"><i class="fas fa-trash-alt"></i> Șterge</button>
+        </div>
+      `;
+    }).join('');
+    container.innerHTML += `<div class="cart-total">💰 TOTAL: ${total} lei</div>`;
+    container.innerHTML += `<button class="btn-whatsapp" id="checkoutBtn"><i class="fab fa-whatsapp"></i> Trimite comanda pe WhatsApp</button>`;
+    container.innerHTML += `<a href="meniu.html" class="btn-continue"><i class="fas fa-arrow-left"></i> Continuă cumpărăturile</a>`;
+    document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+      const cartItems = JSON.parse(localStorage.getItem('pepenero_cart')) || [];
+      let comandaText = cartItems.map(i => `${i.name} x${i.quantity} - ${i.price * i.quantity} lei`).join('\n');
+      let totalAmount = cartItems.reduce((acc, i) => acc + i.price * i.quantity, 0);
+      let message = `🍕 COMANDĂ PEPENERO 🍕\n\n${comandaText}\n\n━━━━━━━━━━━━━━━━\n💰 TOTAL: ${totalAmount} lei\n━━━━━━━━━━━━━━━━\n\n📞 Nume: [scrie aici]\n📍 Adresă livrare: [scrie aici]`;
+      window.open(`https://wa.me/40755888370?text=${encodeURIComponent(message)}`, '_blank');
+    });
+  }
+
+  document.getElementById('cartIcon').onclick = () => window.location.href = 'cos.html';
+  displayCart();
+  updateCartUI();
+  window.removeFromCart = removeFromCart;
+</script>
+</body>
+</html>

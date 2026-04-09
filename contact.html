@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepenero | Contact & Comandă</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fff9f2; color: #2c2418; }
+    h1, h2, h3, .logo { font-family: 'Playfair Display', serif; }
+    header { position: sticky; top: 0; z-index: 1000; background: rgba(255, 251, 245, 0.97); backdrop-filter: blur(12px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); border-bottom: 1px solid #f0e2d4; }
+    .nav-container { max-width: 1400px; margin: 0 auto; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+    .logo h2 { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #c25b1e, #a04010); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; list-style: none; flex-wrap: wrap; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #3a2c1f; transition: 0.2s; }
+    .nav-links a:hover { color: #c25b1e; }
+    .btn-nav { background: #c25b1e; color: white !important; padding: 8px 22px; border-radius: 40px; font-weight: 600; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    section { padding: 60px 0; }
+    .section-title { font-size: 2.2rem; text-align: center; margin-bottom: 40px; position: relative; }
+    .section-title:after { content: ''; display: block; width: 70px; height: 3px; background: #c25b1e; margin: 12px auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+    .info-card { background: white; border-radius: 32px; padding: 35px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+    .info-card h3 { font-size: 1.6rem; margin-bottom: 25px; color: #c25b1e; }
+    .info-item { display: flex; align-items: center; gap: 18px; margin-bottom: 25px; }
+    .info-item i { width: 48px; height: 48px; background: #f3e7de; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #c25b1e; font-size: 1.2rem; }
+    
+    .form-group label {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: block;
+      color: #c25b1e;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1.5px solid #e8ddd2;
+      border-radius: 28px;
+      font-family: inherit;
+      font-size: 1rem;
+      background: white;
+      font-weight: 500;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #c25b1e;
+    }
+    
+    /* Instrucțiuni vizibile */
+    .info-message {
+      background: #fef7e0;
+      border-left: 5px solid #c25b1e;
+      padding: 14px 18px;
+      border-radius: 20px;
+      margin: 20px 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #7a5a3a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .info-message i {
+      font-size: 1.3rem;
+      color: #c25b1e;
+    }
+    
+    .btn-whatsapp-lg {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 16px;
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 1.2rem;
+      cursor: pointer;
+      width: 100%;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .btn-whatsapp-lg:hover {
+      background: #1ebc5c;
+      transform: translateY(-2px);
+    }
+    
+    .required-star {
+      color: #c25b1e;
+      font-size: 0.9rem;
+      font-weight: normal;
+      margin-left: 5px;
+    }
+    
+    .map-box { margin-top: 40px; border-radius: 32px; overflow: hidden; box-shadow: 0 12px 28px rgba(0,0,0,0.08); }
+    .whatsapp-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; box-shadow: 0 6px 18px rgba(0,0,0,0.2); z-index: 999; transition: 0.2s; text-decoration: none; }
+    footer { background: #1e1812; color: #e1cfbc; padding: 40px 0; text-align: center; margin-top: 40px; }
+    @media (max-width: 768px) { .container { padding: 0 20px; } .contact-grid { grid-template-columns: 1fr; } .nav-container { flex-direction: column; gap: 15px; } }
+  </style>
+</head>
+<body>
+<a href="https://wa.me/40755888370" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<header>
+  <div class="nav-container">
+    <div class="logo"><h2>🍕 Pepenero</h2></div>
+    <ul class="nav-links"><li><a href="index.html">Acasă</a></li><li><a href="meniu.html">Meniu</a></li><li><a href="galerie.html">Galerie</a></li><li><a href="contact.html" class="btn-nav">Contact</a></li></ul>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="container">
+      <div class="section-title">📞 Comandă rapidă</div>
+      <div class="contact-grid">
+        <div class="info-card">
+          <h3><i class="fas fa-info-circle"></i> Date contact</h3>
+          <div class="info-item"><i class="fas fa-map-marker-alt"></i><div><strong>Adresă</strong><br>Strada Grigore Ureche nr 15, Suceava</div></div>
+          <div class="info-item"><i class="fas fa-phone-alt"></i><div><strong>Telefon</strong><br><a href="tel:0755888370" style="color:#c25b1e;">0755 888 370</a></div></div>
+          <div class="info-item"><i class="fab fa-whatsapp"></i><div><strong>WhatsApp</strong><br><a href="https://wa.me/40755888370" style="color:#c25b1e;">0755 888 370</a></div></div>
+          <div class="info-item"><i class="far fa-clock"></i><div><strong>Program</strong><br>Luni-Joi: 12:00-22:00<br>Vin-Dum: 12:00-23:30</div></div>
+        </div>
+        <div class="info-card">
+          <h3><i class="fab fa-whatsapp"></i> Comandă pe WhatsApp</h3>
+          
+          <!-- MESAJ DE ATENȚIONARE VIZIBIL -->
+          <div class="info-message">
+            <i class="fas fa-info-circle"></i>
+            <span><strong>⚠️ Important:</strong> Completează <strong>Numele</strong> și <strong>Adresa completă</strong> pentru a putea procesa comanda! Mesajul trimis pe WhatsApp va conține automat toate informațiile.</span>
+          </div>
+          
+          <div class="form-group">
+            <label>Nume complet <span class="required-star">*</span></label>
+            <input type="text" id="numeComanda" placeholder="Ex: Popescu Andrei">
+          </div>
+          <div class="form-group">
+            <label>Adresă livrare <span class="required-star">*</span></label>
+            <input type="text" id="adresaComanda" placeholder="Strada, număr, bloc, scară, etaj">
+          </div>
+          <div class="form-group">
+            <label>Ce dorești să comanzi? <span class="required-star">*</span></label>
+            <input type="text" id="produsComanda" placeholder="Ex: Pizza Margherita, 2x Cola">
+          </div>
+          <div class="form-group">
+            <label>Observații (opțional)</label>
+            <textarea id="obsComanda" rows="2" placeholder="Fără ceapă, sună la interfon, etc."></textarea>
+          </div>
+          
+          <button class="btn-whatsapp-lg" id="whatsappComandaBtn">
+            <i class="fab fa-whatsapp"></i> Trimite comanda pe WhatsApp
+          </button>
+          
+          <!-- Text suplimentar de confirmare -->
+          <p style="font-size: 0.75rem; color: #8b765c; text-align: center; margin-top: 15px;">
+            <i class="fas fa-lock"></i> Datele tale sunt trimise doar pe WhatsApp-ul restaurantului.
+          </p>
+        </div>
+      </div>
+      <div class="map-box"><iframe src="https://maps.google.com/maps?q=Strada%20Grigore%20Ureche%2015%2C%20Suceava&t=&z=16&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen></iframe></div>
+    </div>
+  </section>
+</main>
+<footer><div class="container"><p>© 2025 Pepenero - Pizzerie Napoletană Autentică</p></div></footer>
+
+<script>
+  document.getElementById('whatsappComandaBtn')?.addEventListener('click', () => {
+    let nume = document.getElementById('numeComanda').value.trim();
+    let adresa = document.getElementById('adresaComanda').value.trim();
+    let comanda = document.getElementById('produsComanda').value.trim();
+    let obs = document.getElementById('obsComanda').value.trim();
+    
+    // Validare cu mesaje specifice
+    if (!nume) {
+      alert("❌ Completează Numele complet!\nEste necesar pentru a ști cui îi livrăm comanda.");
+      return;
+    }
+    if (!adresa) {
+      alert("❌ Completează Adresa de livrare!\nEste necesară pentru a putea livra comanda.");
+      return;
+    }
+    if (!comanda) {
+      alert("❌ Scrie ce dorești să comanzi!\nEx: Pizza Margherita, 2x Cola.");
+      return;
+    }
+    
+    // Construim mesajul complet (frumos, lizibil)
+    let mesaj = `🍕 COMANDĂ NOUĂ PEPENERO 🍕\n\n`;
+    mesaj += `👤 *Nume:* ${nume}\n`;
+    mesaj += `📍 *Adresă livrare:* ${adresa}\n`;
+    mesaj += `📦 *Comandă:* ${comanda}\n`;
+    if (obs) mesaj += `📝 *Observații:* ${obs}\n`;
+    mesaj += `\n⏰ Vă rugăm să confirmați comanda. Mulțumim!`;
+    
+    // Deschide WhatsApp cu mesajul precompletat
+    window.open(`https://wa.me/40755888370?text=${encodeURIComponent(mesaj)}`, '_blank');
+  });
+</script>
+</body>
+</html>
